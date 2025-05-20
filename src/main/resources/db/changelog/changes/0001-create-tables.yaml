@@ -1,0 +1,146 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: assistant
+      changes:
+        - createTable:
+            tableName: course
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: created_time
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_time
+                  type: TIMESTAMP
+
+        - createTable:
+            tableName: chapter
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: course_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: chapter_order
+                  type: INT
+              - column:
+                  name: created_time
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_time
+                  type: TIMESTAMP
+
+        - createTable:
+            tableName: lesson
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: chapter_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: content
+                  type: TEXT
+              - column:
+                  name: lesson_order
+                  type: INT
+              - column:
+                  name: created_time
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_time
+                  type: TIMESTAMP
+
+        - createTable:
+            tableName: attachment
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: lesson_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: url
+                  type: VARCHAR(255)
+              - column:
+                  name: created_time
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+        - addForeignKeyConstraint:
+            baseTableName: chapter
+            baseColumnNames: course_id
+            constraintName: fk_chapter_course
+            referencedTableName: course
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: lesson
+            baseColumnNames: chapter_id
+            constraintName: fk_lesson_chapter
+            referencedTableName: chapter
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: attachment
+            baseColumnNames: lesson_id
+            constraintName: fk_attachment_lesson
+            referencedTableName: lesson
+            referencedColumnNames: id

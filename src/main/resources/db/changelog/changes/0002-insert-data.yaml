@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: assistant
+      changes:
+        - insert:
+            tableName: course
+            columns:
+              - column: { name: id, value: 1 }
+              - column: { name: name, value: "Java Developer" }
+              - column: { name: description, value: "Comprehensive course on Java development." }
+        - insert:
+            tableName: chapter
+            columns:
+              - column: { name: id, value: 1 }
+              - column: { name: course_id, value: 1 }
+              - column: { name: name, value: "Basics" }
+              - column: { name: chapter_order, value: 1 }
+        - insert:
+            tableName: lesson
+            columns:
+              - column: { name: id, value: 1 }
+              - column: { name: chapter_id, value: 1 }
+              - column: { name: name, value: "Introduction" }
+              - column: { name: lesson_order, value: 1 }
+        - insert:
+            tableName: lesson
+            columns:
+              - column: { name: id, value: 2 }
+              - column: { name: chapter_id, value: 1 }
+              - column: { name: name, value: "If-Else Conditions" }
+              - column: { name: lesson_order, value: 2 }
